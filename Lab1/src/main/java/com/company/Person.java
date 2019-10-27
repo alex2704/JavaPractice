@@ -148,4 +148,20 @@ public class Person {
             return now.getYear() - birthDay.getYear();
         return now.getYear() - birthDay.getYear() - 1 >= 0 ? now.getYear() - birthDay.getYear() - 1 : 0;
     }
+
+    /**
+     * Приведение класса к строке
+     * @return класс в виде строки
+     */
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthDay=" + birthDay +
+                '}';
+    }
 }
