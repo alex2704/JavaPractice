@@ -135,4 +135,17 @@ public class Person {
     public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
+
+    /**
+     * Вычисляем текущий возраст человека, если он из будущего возвращаем -1
+     * @return возраст в годах
+     */
+    public int getAge(){
+        LocalDate now = LocalDate.now();
+        if ((now.getYear() >= birthDay.getYear() && now.getDayOfYear() < birthDay.getDayOfYear()) ||
+                now.getYear() < birthDay.getYear()) return -1;
+        if (now.getMonthOfYear() >= birthDay.getMonthOfYear() && now.getDayOfMonth() >= birthDay.getDayOfMonth())
+            return now.getYear() - birthDay.getYear();
+        return now.getYear() - birthDay.getYear() - 1 >= 0 ? now.getYear() - birthDay.getYear() - 1 : 0;
+    }
 }
