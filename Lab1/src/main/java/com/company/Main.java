@@ -11,7 +11,7 @@ public class Main {
         DataMas arr = new DataMas();
         Person person = new Person(5, "иван", "Аыупкин", "Васильевич", "м",
                 new LocalDate(2004, 4, 27));
-        Person person2 = new Person(3, "Саша", "Аупкина", "Васильевич", "м",
+        Person person2 = new Person(3, "Саша", "Бакудин", "Васильевич", "м",
                 new LocalDate(1999, 4, 27));
         Person person3 = new Person(2, "Вася", "Вупкин", "Васильевич", "м",
                 new LocalDate(2007, 4, 27));
@@ -30,8 +30,8 @@ public class Main {
 
         arr.sortBySurname();
         DataMas result = arr.search("Вася", "Вупкин");
-        for (int i=0; i<result.getLength(); i++){
-            System.out.println(result.get(i).getId());
+        for (int i=0; i<arr.getLength(); i++){
+            System.out.println(arr.get(i).getAge());
         }
     }
 }
