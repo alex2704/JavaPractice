@@ -130,8 +130,13 @@ public class TestDataMas {
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
-        Person result = dataMas.search(2);
-        Assert.assertEquals(person2, result);
+        try {
+            Person result = dataMas.search(2);
+            Assert.assertEquals(person2, result);
+        }
+        catch (Exception ex){
+            Assert.assertEquals("Объекта с соответсвующим id не найдено", ex.getMessage());
+        }
     }
 
     /**
@@ -149,8 +154,13 @@ public class TestDataMas {
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
-        DataMas result = dataMas.search("Иван", "Арыткин");
-        Assert.assertEquals(person2, result.get(0));
-        Assert.assertEquals(person1, result.get(1));
+        try {
+            DataMas result = dataMas.search("Иван", "Арыткин");
+            Assert.assertEquals(person2, result.get(0));
+            Assert.assertEquals(person1, result.get(1));
+        }
+        catch (Exception ex){
+            Assert.assertEquals("Объекта с соответсвующими параметрами не найдено", ex.getMessage());
+        }
     }
 }

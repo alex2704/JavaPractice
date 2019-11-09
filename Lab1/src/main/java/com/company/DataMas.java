@@ -155,12 +155,12 @@ public class DataMas {
      * @param id идентификатор
      * @return объект класса Person
      */
-    public Person search(int id){
+    public Person search(int id) throws Exception {
         for (Person person : arr) {
             if (person.getId() == id)
                 return person;
         }
-        return null;
+        throw new Exception("Объекта с соответсвующим id не найдено");
     }
 
     /**
@@ -169,12 +169,12 @@ public class DataMas {
      * @param Surname фамилия
      * @return список объектов класса Person с данным именем и фамилией
      */
-    public DataMas search(String Name, String Surname){
+    public DataMas search(String Name, String Surname) throws Exception{
         DataMas result = new DataMas();
         for (Person person : arr) {
             if (person.getSurname().equals(Surname) && person.getName().equals(Name))
                 result.add(person);
         }
-        return result;
+        throw new Exception("Объекта с соответсвующими параметрами не найдено");
     }
 }
