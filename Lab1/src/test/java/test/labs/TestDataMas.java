@@ -14,7 +14,7 @@ public class TestDataMas {
      * the add method should add person object in datamas
      */
     @Test
-    public void testAdd() throws Exception{
+    public void testAdd(){
         DataMas dataMas = new DataMas();
         Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
                 new LocalDate(2004, 4, 27));
@@ -35,7 +35,7 @@ public class TestDataMas {
      * the delete method should delete person object from datamas
      */
     @Test
-    public void testDelete() throws Exception{
+    public void testDelete(){
         DataMas dataMas = new DataMas();
         Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
                 new LocalDate(2004, 4, 27));
