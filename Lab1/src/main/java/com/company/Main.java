@@ -29,7 +29,7 @@ public class Main {
         arr.add(person5);
 
         arr.sortBySurname();
-        DataMas result = arr.search("Вася", "Вупкин");
+//        DataMas result = arr.search("Вася", "Вупкин");
         for (int i=0; i<arr.getLength(); i++){
             System.out.println(arr.get(i).getAge());
         }
