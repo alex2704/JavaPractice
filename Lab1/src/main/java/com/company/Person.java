@@ -142,9 +142,11 @@ public class Person {
      */
     public int getAge(){
         LocalDate now = LocalDate.now();
-        if ((now.getYear() >= birthDay.getYear() && now.getDayOfYear() < birthDay.getDayOfYear()) ||
+        if ((now.getYear() == birthDay.getYear() && now.getDayOfYear() < birthDay.getDayOfYear()) ||
                 now.getYear() < birthDay.getYear()) return -1;
-        if (now.getMonthOfYear() >= birthDay.getMonthOfYear() && now.getDayOfMonth() >= birthDay.getDayOfMonth())
+        if (now.getMonthOfYear() > birthDay.getMonthOfYear())
+            return now.getYear() - birthDay.getYear();
+        if (now.getMonthOfYear() == birthDay.getMonthOfYear() && now.getDayOfMonth() >= birthDay.getDayOfMonth())
             return now.getYear() - birthDay.getYear();
         return now.getYear() - birthDay.getYear() - 1 >= 0 ? now.getYear() - birthDay.getYear() - 1 : 0;
     }
