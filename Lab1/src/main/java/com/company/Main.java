@@ -2,6 +2,7 @@ package com.company;
 
 import org.joda.time.LocalDate;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class Main {
@@ -14,19 +15,23 @@ public class Main {
                 new LocalDate(1999, 4, 27));
         Person person3 = new Person(2, "Вася", "Вупкин", "Васильевич", "м",
                 new LocalDate(2007, 4, 27));
+        Person person4 = new Person(6, "Вася", "Вупкин", "Васильевич", "м",
+                new LocalDate(2007, 4, 27));
+        Person person5 = new Person(7, "Вася", "Вупкин", "Васильевич", "м",
+                new LocalDate(2007, 4, 27));
         arr.add(person);
         arr.add(person);
         arr.add(person);
         arr.add(person);
         arr.add(person3);
         arr.add(person2);
+        arr.add(person4);
+        arr.add(person5);
 
         arr.sortBySurname();
-        ArrayList<Person> result = arr.search(5);
-        System.out.println(result.get(0).getSurname());
-        System.out.println("Завершен");
-        for (int i=0; i<arr.getLength(); i++){
-            System.out.println(arr.get(i).getSurname());
+        DataMas result = arr.search("Вася", "Вупкин");
+        for (int i=0; i<result.getLength(); i++){
+            System.out.println(result.get(i).getId());
         }
     }
 }

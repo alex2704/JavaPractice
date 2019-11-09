@@ -169,8 +169,8 @@ public class DataMas {
      * @param Surname фамилия
      * @return список объектов класса Person с данным именем и фамилией
      */
-    public ArrayList<Person> search(String Name, String Surname){
-        ArrayList<Person> result = new ArrayList<Person>();
+    public DataMas search(String Name, String Surname){
+        DataMas result = new DataMas();
         for (Person person : arr) {
             if (person.getSurname().equals(Surname) && person.getName().equals(Name))
                 result.add(person);
