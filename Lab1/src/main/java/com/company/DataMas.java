@@ -114,7 +114,7 @@ public class DataMas {
     /**
      * Сортировка простыми вставками по возрасту по возрастанию.
      */
-    public void sortByBirthday(){
+    public void sortByBirthday() throws Exception{
         for (int i=1; i<arr.length; i++){
             Person current = arr[i];
             int j = i - 1;

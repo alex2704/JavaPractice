@@ -2,6 +2,7 @@ package test.labs;
 
 import com.company.DataMas;
 import com.company.Person;
+import org.apache.velocity.app.event.implement.EscapeXmlReference;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
@@ -77,12 +78,12 @@ public class TestDataMas {
      * the sortById method should sort items ascending by birthday
      */
     @Test
-    public void testSortByBirthday(){
+    public void testSortByBirthday() throws Exception{
         DataMas dataMas = new DataMas();
         Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
                 new LocalDate(2004, 4, 27));
         Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
+                new LocalDate(2022, 4, 22));
         Person person3 = new Person(3, "Вася", "Мышев", "Иванович", "м",
                 new LocalDate(2001, 3, 21));
         dataMas.add(person3);

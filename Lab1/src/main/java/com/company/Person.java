@@ -140,10 +140,10 @@ public class Person {
      * Вычисляем текущий возраст человека, если он из будущего возвращаем -1
      * @return возраст в годах
      */
-    public int getAge(){
+    public int getAge() throws Exception{
         LocalDate now = LocalDate.now();
         if ((now.getYear() == birthDay.getYear() && now.getDayOfYear() < birthDay.getDayOfYear()) ||
-                now.getYear() < birthDay.getYear()) return -1;
+                now.getYear() < birthDay.getYear()) throw new Exception("Введенная дата из будущего");
         if (now.getMonthOfYear() > birthDay.getMonthOfYear())
             return now.getYear() - birthDay.getYear();
         if (now.getMonthOfYear() == birthDay.getMonthOfYear() && now.getDayOfMonth() >= birthDay.getDayOfMonth())
