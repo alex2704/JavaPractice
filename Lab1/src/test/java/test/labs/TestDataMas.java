@@ -1,13 +1,14 @@
 package test.labs;
 
 import com.company.DataMas;
+import com.company.Division;
 import com.company.Person;
-import org.apache.velocity.app.event.implement.EscapeXmlReference;
+import enums.Gender;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
+import java.math.BigDecimal;
 
 public class TestDataMas {
 
@@ -17,12 +18,12 @@ public class TestDataMas {
     @Test
     public void testAdd(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Мышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person1);
         dataMas.add(person2);
         dataMas.add(person3);
@@ -38,12 +39,12 @@ public class TestDataMas {
     @Test
     public void testDelete(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Мышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person1);
         dataMas.add(person2);
         dataMas.add(person3);
@@ -59,19 +60,19 @@ public class TestDataMas {
     @Test
     public void testSortById(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Мышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
         dataMas.sortById();
-        Assert.assertEquals(1, dataMas.get(0).getId());
-        Assert.assertEquals(2, dataMas.get(1).getId());
-        Assert.assertEquals(3, dataMas.get(2).getId());
+        Assert.assertEquals(1, (int)dataMas.get(0).getId());
+        Assert.assertEquals(2, (int)dataMas.get(1).getId());
+        Assert.assertEquals(3, (int)dataMas.get(2).getId());
     }
 
     /**
@@ -80,19 +81,19 @@ public class TestDataMas {
     @Test
     public void testSortByBirthday() throws Exception{
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Прыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Мышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
         dataMas.sortById();
-        Assert.assertEquals(15, dataMas.get(0).getAge());
-        Assert.assertEquals(17, dataMas.get(1).getAge());
-        Assert.assertEquals(18, dataMas.get(2).getAge());
+        Assert.assertEquals(15, (int)dataMas.get(0).getAge());
+        Assert.assertEquals(17, (int)dataMas.get(1).getAge());
+        Assert.assertEquals(18, (int)dataMas.get(2).getAge());
     }
 
     /**
@@ -101,19 +102,19 @@ public class TestDataMas {
     @Test
     public void testSortBySurname(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Арыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Хышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Арыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Хышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
         dataMas.sortBySurname();
-        Assert.assertEquals("Арыткин", dataMas.get(0).getSurname());
-        Assert.assertEquals("Кеник", dataMas.get(1).getSurname());
-        Assert.assertEquals("Хышев", dataMas.get(2).getSurname());
+        Assert.assertEquals("Арыткин", dataMas.get(0).getLastName());
+        Assert.assertEquals("Кеник", dataMas.get(1).getLastName());
+        Assert.assertEquals("Хышев", dataMas.get(2).getLastName());
     }
 
     /**
@@ -122,12 +123,12 @@ public class TestDataMas {
     @Test
     public void testSearchId(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Арыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Саша", "Кеник", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Хышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
@@ -146,12 +147,12 @@ public class TestDataMas {
     @Test
     public void testSearchNameSurname(){
         DataMas dataMas = new DataMas();
-        Person person1 = new Person(1, "Иван", "Арыткин", "Васильевич", "м",
-                new LocalDate(2004, 4, 27));
-        Person person2 = new Person(2, "Иван", "Арыткин", "Юрьевич", "м",
-                new LocalDate(2002, 4, 22));
-        Person person3 = new Person(3, "Вася", "Хышев", "Иванович", "м",
-                new LocalDate(2001, 3, 21));
+        Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
+                new LocalDate(2002, 4, 22), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(3, "Вася", "Мышев", Gender.MALE,
+                new LocalDate(2001, 3, 21), new BigDecimal(10000), new Division("Работник"));
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);

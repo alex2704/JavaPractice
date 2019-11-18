@@ -1,11 +1,5 @@
 package com.company;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.joda.time.LocalDate;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Массив который хранит объекты экземпляра Person.
  */
@@ -135,10 +129,10 @@ public class DataMas {
             int minId = i;
             for (int j=i+1; j<arr.length; j++){
                 int m  = 0;
-                while (arr[j].getSurname().substring(m, m + 1).equals(min.getSurname().substring(m, m + 1)) &&
-                        m + 1 < arr[j].getSurname().length() && m + 1 < min.getSurname().length())
+                while (arr[j].getLastName().substring(m, m + 1).equals(min.getLastName().substring(m, m + 1)) &&
+                        m + 1 < arr[j].getLastName().length() && m + 1 < min.getLastName().length())
                     m++;
-                if(arr[j].getSurname().charAt(m) < min.getSurname().charAt(m)){
+                if(arr[j].getLastName().charAt(m) < min.getLastName().charAt(m)){
                     min = arr[j];
                     minId = j;
                 }
@@ -172,7 +166,7 @@ public class DataMas {
     public DataMas search(String Name, String Surname) throws Exception{
         DataMas result = new DataMas();
         for (Person person : arr) {
-            if (person.getSurname().equals(Surname) && person.getName().equals(Name))
+            if (person.getLastName().equals(Surname) && person.getFirstName().equals(Name))
                 result.add(person);
         }
         throw new Exception("Объекта с соответсвующими параметрами не найдено");

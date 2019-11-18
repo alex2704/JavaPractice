@@ -1,60 +1,74 @@
 package com.company;
 
+import enums.Gender;
+import interfaces.IDivision;
+import interfaces.IPerson;
 import org.joda.time.LocalDate;
 
-public class Person {
+import java.math.BigDecimal;
+
+public class Person implements IPerson {
     /**
      * поле идентификатор
      */
-    private int id;
+    private Integer id;
 
     /**
      * имя
      */
-    private String name;
+    private String firstName;
 
     /**
      * фамилия
      */
-    private String surname;
-
-    /**
-     * отчество
-     */
-    private String patronymic;
+    private String lastName;
 
     /**
      * пол
      */
-    private String gender;
+    private Gender gender;
 
     /**
      * дата дня рождения человека
      */
-    private LocalDate birthDay;
+    private LocalDate birthDate;
+
+    /**
+     * классификация
+     */
+    private IDivision division;
+
+    /**
+     * зарплата
+     */
+    private BigDecimal salary;
 
     /**
      *
      * @param id идентификатор
-     * @param name имя
-     * @param surname фамилия
-     * @param patronymic отчество
+     * @param firstName имя
+     * @param lastName фамилия
      * @param gender пол
-     * @param birthDay дата рождения
+     * @param birthDate дата рождения
+     * @param salary зарплата
+     * @param division классификация
      */
-    public Person(int id, String name, String surname, String patronymic, String gender, LocalDate birthDay){
+    public Person(Integer id, String firstName, String lastName, Gender gender, LocalDate birthDate, BigDecimal salary,
+                  IDivision division){
         this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
-        this.birthDay = birthDay;
+        this.birthDate = birthDate;
+        this.salary = salary;
+        this.division = division;
     }
 
     /**
      * @return  идентификатор
      */
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
@@ -62,93 +76,125 @@ public class Person {
      *
      * @param id идентификатор
      */
-    public void setId(int id) {
+    @Override
+    public void setId(Integer id) {
         this.id = id;
     }
 
     /**
      * @return  пол
      */
-    public String getGender() {
+    @Override
+    public Gender getGender() {
         return gender;
     }
 
     /**
      * @param gender пол
      */
-    public void setGender(String gender) {
+    @Override
+    public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    /**
-     * @return  отчество
-     */
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    /**
-     * @param patronymic отчество
-     */
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     /**
      * @return фамилия
      */
-    public String getSurname() {
-        return surname;
+    @Override
+    public String getLastName() {
+        return lastName;
     }
 
     /**
-     * @param surname фамилия
+     * @param lastName фамилия
      */
-    public void setSurname(String surname) {
-        this.surname = surname;
+    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
      * @return имя
      */
-    public String getName() {
-        return name;
+    @Override
+    public String getFirstName() {
+        return firstName;
     }
 
     /**
-     * @param name имя
+     * @param firstName имя
      */
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     /**
      * @return дата рождения
      */
-    public LocalDate getBirthDay() {
-        return birthDay;
+    @Override
+    public LocalDate getBirthdate() {
+        return birthDate;
     }
 
     /**
-     * @param birthDay дата рождения
+     * @param birthDate дата рождения
      */
-    public void setBirthDay(LocalDate birthDay) {
-        this.birthDay = birthDay;
+    @Override
+    public void setBirthdate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     /**
      * Вычисляем текущий возраст человека, если он из будущего возвращаем -1
      * @return возраст в годах
      */
-    public int getAge() throws Exception{
+    @Override
+    public Integer getAge() throws Exception{
         LocalDate now = LocalDate.now();
-        if ((now.getYear() == birthDay.getYear() && now.getDayOfYear() < birthDay.getDayOfYear()) ||
-                now.getYear() < birthDay.getYear()) throw new Exception("Введенная дата из будущего");
-        if (now.getMonthOfYear() > birthDay.getMonthOfYear())
-            return now.getYear() - birthDay.getYear();
-        if (now.getMonthOfYear() == birthDay.getMonthOfYear() && now.getDayOfMonth() >= birthDay.getDayOfMonth())
-            return now.getYear() - birthDay.getYear();
-        return now.getYear() - birthDay.getYear() - 1 >= 0 ? now.getYear() - birthDay.getYear() - 1 : 0;
+        if ((now.getYear() == birthDate.getYear() && now.getDayOfYear() < birthDate.getDayOfYear()) ||
+                now.getYear() < birthDate.getYear()) throw new Exception("Введенная дата из будущего");
+        if (now.getMonthOfYear() > birthDate.getMonthOfYear())
+            return now.getYear() - birthDate.getYear();
+        if (now.getMonthOfYear() == birthDate.getMonthOfYear() && now.getDayOfMonth() >= birthDate.getDayOfMonth())
+            return now.getYear() - birthDate.getYear();
+        return now.getYear() - birthDate.getYear() - 1 >= 0 ? now.getYear() - birthDate.getYear() - 1 : 0;
+    }
+
+    /**
+     * Возвращает devision
+     * @return division
+     */
+    @Override
+    public IDivision getDivision() {
+        return division;
+    }
+
+    /**
+     * Изменяет division
+     * @param division division
+     */
+    @Override
+    public void setDivision(IDivision division) {
+        this.division = division;
+    }
+
+    /**
+     * Получает salary
+     * @return salary
+     */
+    @Override
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    /**
+     * Изменяет salary
+     * @param salary salary
+     */
+    @Override
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
     /**
@@ -159,11 +205,12 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthDay=" + birthDay +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender=" + gender +
+                ", birthDate=" + birthDate +
+                ", division=" + division +
+                ", salary=" + salary +
                 '}';
     }
 }

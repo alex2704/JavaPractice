@@ -1,9 +1,9 @@
 package interfaces;
 
 import enums.Gender;
+import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public interface IPerson {
 
@@ -23,7 +23,7 @@ public interface IPerson {
 
     public void setBirthdate(LocalDate birthdate);
 
-    public Integer getAge();
+    public Integer getAge() throws Exception;
 
     public Gender getGender();
 
