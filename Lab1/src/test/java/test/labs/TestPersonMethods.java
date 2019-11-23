@@ -2,12 +2,12 @@ package test.labs;
 
 import com.company.Division;
 import com.company.Person;
-import enums.Gender;
-import org.joda.time.LocalDate;
+import entities.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class TestPersonMethods {
     /**
@@ -16,15 +16,12 @@ public class TestPersonMethods {
     @Test
     public void testGetAge(){
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
-                new LocalDate(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
+                 LocalDate.of(1999,4,27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(1, "Иван", "Прыткин", Gender.MALE,
-                new LocalDate(2020, 12, 27), new BigDecimal(10000), new Division("Работник"));
-        try{
-        Assert.assertEquals(15, (int)person1.getAge());
-        Assert.assertEquals(14, (int)person2.getAge());
-        }
-        catch (Exception ex){
-            Assert.assertEquals("Введенная дата из будущего", ex.getMessage());
-        }
+                LocalDate.of(2005, 12, 27), new BigDecimal(10000), new Division("Работник"));
+        Person person3 = new Person(1, "Иван", "Прыткин", Gender.MALE,
+                LocalDate.of(2020, 12, 27), new BigDecimal(10000), new Division("Работник"));
+        Assert.assertEquals(20, (int)person1.getAge());
+        Assert.assertEquals(13, (int)person2.getAge());
     }
 }

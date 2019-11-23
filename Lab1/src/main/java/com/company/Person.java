@@ -1,13 +1,13 @@
 package com.company;
 
-import enums.Gender;
-import interfaces.IDivision;
-import interfaces.IPerson;
-import org.joda.time.LocalDate;
+import entities.enums.Gender;
+import entities.IDivision;
+import entities.IPerson;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
-public class Person implements IPerson {
+public class Person implements IPerson{
     /**
      * поле идентификатор
      */
@@ -31,7 +31,7 @@ public class Person implements IPerson {
     /**
      * дата дня рождения человека
      */
-    private LocalDate birthDate;
+    private LocalDate birthdate;
 
     /**
      * классификация
@@ -49,17 +49,17 @@ public class Person implements IPerson {
      * @param firstName имя
      * @param lastName фамилия
      * @param gender пол
-     * @param birthDate дата рождения
+     * @param birthdate дата рождения
      * @param salary зарплата
      * @param division классификация
      */
-    public Person(Integer id, String firstName, String lastName, Gender gender, LocalDate birthDate, BigDecimal salary,
+    public Person(Integer id, String firstName, String lastName, Gender gender, LocalDate birthdate, BigDecimal salary,
                   IDivision division){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthdate = birthdate;
         this.salary = salary;
         this.division = division;
     }
@@ -134,15 +134,15 @@ public class Person implements IPerson {
      */
     @Override
     public LocalDate getBirthdate() {
-        return birthDate;
+        return birthdate;
     }
 
     /**
      * @param birthDate дата рождения
      */
     @Override
-    public void setBirthdate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(LocalDate birthDate){
+        this.birthdate = birthDate;
     }
 
     /**
@@ -150,15 +150,15 @@ public class Person implements IPerson {
      * @return возраст в годах
      */
     @Override
-    public Integer getAge() throws Exception{
+    public Integer getAge(){
         LocalDate now = LocalDate.now();
-        if ((now.getYear() == birthDate.getYear() && now.getDayOfYear() < birthDate.getDayOfYear()) ||
-                now.getYear() < birthDate.getYear()) throw new Exception("Введенная дата из будущего");
-        if (now.getMonthOfYear() > birthDate.getMonthOfYear())
-            return now.getYear() - birthDate.getYear();
-        if (now.getMonthOfYear() == birthDate.getMonthOfYear() && now.getDayOfMonth() >= birthDate.getDayOfMonth())
-            return now.getYear() - birthDate.getYear();
-        return now.getYear() - birthDate.getYear() - 1 >= 0 ? now.getYear() - birthDate.getYear() - 1 : 0;
+        if ((now.getYear() == birthdate.getYear() && now.getDayOfYear() < birthdate.getDayOfYear()) ||
+                now.getYear() < birthdate.getYear()) return null;
+        if (now.getMonthValue() > birthdate.getMonthValue())
+            return now.getYear() - birthdate.getYear();
+        if (now.getMonthValue() == birthdate.getMonthValue() && now.getDayOfMonth() >= birthdate.getDayOfMonth())
+            return now.getYear() - birthdate.getYear();
+        return now.getYear() - birthdate.getYear() - 1 >= 0 ? now.getYear() - birthdate.getYear() - 1 : 0;
     }
 
     /**
@@ -208,7 +208,7 @@ public class Person implements IPerson {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender=" + gender +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + birthdate +
                 ", division=" + division +
                 ", salary=" + salary +
                 '}';
