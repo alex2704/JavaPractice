@@ -218,4 +218,5 @@ public class TestDataMas {
         DataMas result = (DataMas) dataMas.searchBy(isName);
         Assert.assertEquals(person3, result.get(0));
     }
+
 }
