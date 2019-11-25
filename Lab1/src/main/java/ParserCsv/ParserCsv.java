@@ -3,6 +3,7 @@ package ParserCsv;
 import com.company.DataMas;
 import com.company.Division;
 import com.company.Person;
+import entities.IDivision;
 import entities.enums.Gender;
 import repository.IRepository;
 
@@ -30,9 +31,12 @@ public class ParserCsv {
         return lines;
     }
 
+    private List<IDivision> divisions =  new ArrayList<>();
+
     public void setLines() {
 
     }
+
 
     public void read(final String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -47,16 +51,29 @@ public class ParserCsv {
         IRepository dataMas = new DataMas();
         for (String line : lines) {
             String[] subStr = line.split(";");
+            IDivision current_division = check_division(subStr);
             Person person = new Person(Integer.parseInt(subStr[ID_INDEX]),
                     subStr[FIRST_NAME_INDEX], "",
                     subStr[GENDER_INDEX].equals("Male") ? Gender.MALE : (subStr[GENDER_INDEX].equals("Female") ? Gender.FEMALE : null),
                     LocalDate.parse(subStr[BIRTH_DATE_INDEX],
                             DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.US)),
                     new BigDecimal(subStr[SALARY_INDEX]),
-                    new Division(subStr[DIVISION_INDEX]));
+                    current_division);
             dataMas.add(person);
         }
         return dataMas;
+    }
+
+    private IDivision check_division(String[] subStr){
+        if(!divisions.isEmpty()){
+            for (IDivision division : divisions) {
+                if (division.getName().equals(subStr[DIVISION_INDEX])){
+                    return division;
+                }
+            }
+        }
+        divisions.add(new Division(subStr[DIVISION_INDEX]));
+        return  new Division(subStr[DIVISION_INDEX]);
     }
 
 
