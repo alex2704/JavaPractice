@@ -4,6 +4,7 @@ import com.company.DataMas;
 import com.company.Division;
 import com.company.Person;
 import entities.IDivision;
+import entities.IPerson;
 import entities.enums.Gender;
 import repository.IRepository;
 
@@ -48,7 +49,7 @@ public class ParserCsv {
     }
 
     public IRepository parse(){
-        IRepository dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<IPerson>();
         for (String line : lines) {
             String[] subStr = line.split(";");
             IDivision current_division = check_division(subStr);
@@ -61,7 +62,7 @@ public class ParserCsv {
                     current_division);
             dataMas.add(person);
         }
-        return dataMas;
+        return (IRepository) dataMas;
     }
 
     private IDivision check_division(String[] subStr){

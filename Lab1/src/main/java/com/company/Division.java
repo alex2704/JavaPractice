@@ -1,6 +1,7 @@
 package com.company;
 
-import entities.IDivision;
+
+import ru.vsu.lab.entities.IDivision;
 
 public class Division implements IDivision {
     private String name;

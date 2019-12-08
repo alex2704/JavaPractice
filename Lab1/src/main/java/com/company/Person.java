@@ -1,13 +1,13 @@
 package com.company;
 
-import entities.enums.Gender;
-import entities.IDivision;
-import entities.IPerson;
+import ru.vsu.lab.entities.IDivision;
+import ru.vsu.lab.entities.IPerson;
+import ru.vsu.lab.entities.enums.Gender;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Person implements IPerson{
+public class Person implements IPerson {
     /**
      * поле идентификатор
      */

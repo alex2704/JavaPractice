@@ -21,7 +21,7 @@ public class TestParser {
         ParserCsv parser = new ParserCsv();
         String path = "src/main/resources/persons.csv";
         parser.read(path);
-        IRepository result = parser.parse();
+        IRepository<Person> result = parser.parse();
         Assert.assertEquals(person.getId(), result.get(9).getId());
     }
 }

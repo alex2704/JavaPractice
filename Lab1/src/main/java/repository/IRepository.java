@@ -1,28 +1,23 @@
 package repository;
 
-import entities.IPerson;
-
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 
-public interface IRepository {
-    public void add(IPerson person);
+public interface IRepository<T> {
+    void add(T var1);
 
-    public IPerson get(int index);
+    T get(int var1);
 
-    public void delete(int index);
+    T delete(int var1);
 
-    public void set(int index, IPerson person);
+    T set(int var1, T var2);
 
-    public void add(int index, IPerson person);
+    void add(int var1, T var2);
 
-    public List<IPerson> toList();
+    List<T> toList();
 
-    //Should not use toList method
-    public void sortBy(Comparator<IPerson> comparator );
+    void sortBy(Comparator<T> var1);
 
-    //Should not use toList method
-    public IRepository searchBy(Predicate<IPerson> condition);
+    IRepository<T> searchBy(Predicate<T> var1);
 }

@@ -4,7 +4,7 @@ import entities.IPerson;
 
 import java.util.Comparator;
 
-public class LastNameComparator implements Comparator<IPerson> {
+public class LastNameComparator<T> implements Comparator<IPerson> {
     /**
      *
      * @param o1 object 1

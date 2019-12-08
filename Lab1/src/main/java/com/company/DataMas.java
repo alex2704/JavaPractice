@@ -1,22 +1,20 @@
 package com.company;
 
-import entities.IPerson;
-import repository.IRepository;
+import ru.vsu.lab.repository.IRepository;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Массив который хранит объекты экземпляра Person.
+ * Массив который хранит объекты
  */
-public class DataMas implements IRepository {
+public class DataMas<T> implements IRepository<T>{
     /**
      * поле с экземплярами класса Person.
      */
-    private IPerson[] arr;
+    private Object [] arr;
 
     /**
      * Дефолтный размер массива.
@@ -37,7 +35,7 @@ public class DataMas implements IRepository {
      * Начальный конструктор.
      */
     public DataMas(){
-        arr = new Person[DEFAULT_LENGTH];
+        arr = new Object[DEFAULT_LENGTH];
     }
 
     /**
@@ -46,7 +44,7 @@ public class DataMas implements IRepository {
      */
     public DataMas(final int ArrLength){
         if(ArrLength > 0){
-            arr = new Person[ArrLength];
+            arr = new Object[ArrLength];
         }
     }
 
@@ -62,8 +60,8 @@ public class DataMas implements IRepository {
      * приведение к списку.
      */
     @Override
-    public List<IPerson> toList() {
-        return Arrays.asList(arr);
+    public List<T> toList() {
+        return Arrays.asList((T[])arr);
     }
 
     /**
@@ -72,9 +70,9 @@ public class DataMas implements IRepository {
      * @return Person.
      */
     @Override
-    public IPerson get(int index){
+    public T get(int index){
         if (index < arr.length && index >= 0){
-            return arr[index];
+            return getT(index);
         }
         return null;
     }
@@ -83,22 +81,31 @@ public class DataMas implements IRepository {
      * изменяем элемент массива на позиции index.
      */
     @Override
-    public void set(final int index, final IPerson person) {
+     public T set(int index, T person) {
         if (index < arr.length && index >= 0) {
+            T temp = getT(index);
             arr[index] = person;
+            return temp;
         }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private T getT(int index){
+        return (T)this.arr[index];
     }
 
     /**
      * Метод добавляет person в массив
      * @param person добавляемый элемент.
      */
-    public void add(final IPerson person){
+    @Override
+    public void add(T person){
         if (lastAddedIndex + 1 < arr.length) {
             arr[++lastAddedIndex] = person;
         }
         else{
-            IPerson[] extendedArr = new IPerson[arr.length + (int)(arr.length * INCREASE_FACTOR)];
+            Object[] extendedArr = new Object[arr.length + (int)(arr.length * INCREASE_FACTOR)];
             for (int i = 0; i < arr.length; i++){
                 if (arr[i] != null) {
                     extendedArr[i] = arr[i];
@@ -114,7 +121,8 @@ public class DataMas implements IRepository {
      * @param index position
      * @param person person object
      */
-    public void add(int index, IPerson person) {
+    @Override
+    public void add(int index, T person) {
         if (index + 1 < arr.length && arr[arr.length - 1] == null) {
             if (arr[index] != null) {
                 right_shift_mas(index, person, arr);
@@ -127,7 +135,7 @@ public class DataMas implements IRepository {
             while (length < index){
                 length +=arr.length + (int)(arr.length * INCREASE_FACTOR);
             }
-            IPerson[] extendedArr = new IPerson[arr.length + (int)(arr.length * INCREASE_FACTOR)];
+            Object[] extendedArr = new Object[arr.length + (int)(arr.length * INCREASE_FACTOR)];
             if (index >= 0) System.arraycopy(arr, 0, extendedArr, 0, index);
             right_shift_mas(index, person, extendedArr);
             arr = extendedArr;
@@ -144,12 +152,12 @@ public class DataMas implements IRepository {
      * @param person person элемент
      * @param arr массив с которым работаем
      */
-    private void right_shift_mas(int index, IPerson person, IPerson[] arr) {
-        Person tmp = (Person)arr[index];
+    private void right_shift_mas(int index, T person, Object[] arr) {
+        Object tmp = arr[index];
         arr[index] = person;
 
         for (int i = index +1 ; i < arr.length; i++) {
-            Person next = (Person) arr[i];
+            Object next = arr[i];
             arr[i] = tmp;
             tmp = next;
         }
@@ -160,25 +168,28 @@ public class DataMas implements IRepository {
      * @param index иднекс удаляемого элемента.
      */
     @Override
-    public void delete(final int index){
+    public T delete(final int index){
         if(index < arr.length && index >= 0){
+            T n = this.get(index);
             for(int i = index; i < lastAddedIndex; i++){
                 arr[i] = arr[i + 1];
             }
             arr[lastAddedIndex--] = null;
+            return n;
         }
+        return null;
     }
 
     /**
      * Сортировка пузырьком по id по возрастанию
      * @param comparator comparator Object
      */
-    public void bubbleSortBy(Comparator<IPerson> comparator ){
-        IPerson temp;
+    public void bubbleSortBy(Comparator<T> comparator ){
+        T temp;
         for (int i=0; i<lastAddedIndex + 1; i++){
             for (int j = lastAddedIndex; j > i; j--){
-                if(comparator.compare(arr[j - 1], arr[j]) > 0){
-                    temp = arr[j-1];
+                if(comparator.compare(getT(j-1), getT(j)) > 0){
+                    temp = getT(j-1);
                     arr[j-1] = arr[j];
                     arr[j] = temp;
                 }
@@ -188,13 +199,14 @@ public class DataMas implements IRepository {
 
     /**
      * Сортировка простыми вставками по возрасту по возрастанию.
+     * @param comparator
      */
     @Override
-    public void sortBy(Comparator<IPerson> comparator ){
+    public void sortBy(Comparator comparator ){
         for (int i=1; i < lastAddedIndex + 1; i++){
-            IPerson current = arr[i];
+            T current = getT(i);
             int j = i - 1;
-            while (j >= 0 && comparator.compare(current, arr[j]) < 0){
+            while (j >= 0 && comparator.compare(current, getT(j)) < 0){
                 arr[j + 1] = arr[j];
                 j--;
             }
@@ -202,44 +214,44 @@ public class DataMas implements IRepository {
         }
     }
 
-    /**
-     * Быстрая сортировка по фамилии по возрастанию
-     */
-    public void sortBySurname(){
-        for (int i=0; i<lastAddedIndex + 1; i++){
-            Person min = (Person) arr[i];
-            int minId = i;
-            for (int j=i+1; j<lastAddedIndex + 1; j++){
-                int m  = 0;
-                while (arr[j].getLastName().substring(m, m + 1).equals(min.getLastName().substring(m, m + 1)) &&
-                        m + 1 < arr[j].getLastName().length() && m + 1 < min.getLastName().length())
-                    m++;
-                if(arr[j].getLastName().charAt(m) < min.getLastName().charAt(m)){
-                    min = (Person) arr[j];
-                    minId = j;
-                }
-                m = 0;
-            }
-            Person temp = (Person) arr[i];
-            arr[i] = min;
-            arr[minId] = temp;
-        }
-    }
+//    /**
+//     * Быстрая сортировка по фамилии по возрастанию
+//     */
+//    public void sortBySurname(){
+//        for (int i=0; i<lastAddedIndex + 1; i++){
+//            Person min = (Person) arr[i];
+//            int minId = i;
+//            for (int j=i+1; j<lastAddedIndex + 1; j++){
+//                int m  = 0;
+//                while (arr[j].getLastName().substring(m, m + 1).equals(min.getLastName().substring(m, m + 1)) &&
+//                        m + 1 < arr[j].getLastName().length() && m + 1 < min.getLastName().length())
+//                    m++;
+//                if(arr[j].getLastName().charAt(m) < min.getLastName().charAt(m)){
+//                    min = (Person) arr[j];
+//                    minId = j;
+//                }
+//                m = 0;
+//            }
+//            Person temp = (Person) arr[i];
+//            arr[i] = min;
+//            arr[minId] = temp;
+//        }
+//    }
 
-    /**
-     * Поиск по имени и фамилии
-     * @param Name имя
-     * @param Surname фамилия
-     * @return список объектов класса Person с данным именем и фамилией
-     */
-    public DataMas search(String Name, String Surname) throws Exception{
-        DataMas result = new DataMas();
-        for (IPerson person : arr) {
-            if (person.getLastName().equals(Surname) && person.getFirstName().equals(Name))
-                result.add(person);
-        }
-        throw new Exception("Объекта с соответсвующими параметрами не найдено");
-    }
+//    /**
+//     * Поиск по имени и фамилии
+//     * @param Name имя
+//     * @param Surname фамилия
+//     * @return список объектов класса Person с данным именем и фамилией
+//     */
+//    public DataMas search(String Name, String Surname) throws Exception{
+//        DataMas result = new DataMas();
+//        for (IPerson person : arr) {
+//            if (person.getLastName().equals(Surname) && person.getFirstName().equals(Name))
+//                result.add(person);
+//        }
+//        throw new Exception("Объекта с соответсвующими параметрами не найдено");
+//    }
 
     /**
      * Поиск по массиву с задданым условием
@@ -247,12 +259,12 @@ public class DataMas implements IRepository {
      * @return repository mas
      */
     @Override
-    public IRepository searchBy(Predicate<IPerson> condition) {
-        IRepository repository = new DataMas();
+    public IRepository<T> searchBy(Predicate condition) {
+        DataMas<T> repository = new DataMas<T>();
         for (int i = 0; i < lastAddedIndex + 1; i++) {
             if(arr[i] != null){
-                if (condition.test(arr[i])) {
-                    repository.add(arr[i]);
+                if (condition.test(getT(i))) {
+                    repository.add(getT(i));
                 }
             }
         }
