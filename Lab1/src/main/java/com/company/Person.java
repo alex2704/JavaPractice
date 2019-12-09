@@ -64,6 +64,9 @@ public class Person implements IPerson {
         this.division = division;
     }
 
+    public Person(){
+    }
+
     /**
      * @return  идентификатор
      */

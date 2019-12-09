@@ -11,6 +11,9 @@ public class Division implements IDivision {
         this.name = name;
     }
 
+    public Division(){}
+
+
     @Override
     public Integer getId() {
         return id;
