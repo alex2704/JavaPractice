@@ -1,5 +1,6 @@
 package com.company;
 
+import Comparators.IdComparator;
 import ru.vsu.lab.repository.IRepository;
 
 import java.util.Arrays;
@@ -202,7 +203,7 @@ public class DataMas<T> implements IRepository<T>{
      * @param comparator
      */
     @Override
-    public void sortBy(Comparator comparator ){
+    public void sortBy(Comparator<T> comparator ){
         for (int i=1; i < lastAddedIndex + 1; i++){
             T current = getT(i);
             int j = i - 1;
@@ -259,7 +260,7 @@ public class DataMas<T> implements IRepository<T>{
      * @return repository mas
      */
     @Override
-    public IRepository<T> searchBy(Predicate condition) {
+    public IRepository<T> searchBy(Predicate<T> condition) {
         DataMas<T> repository = new DataMas<T>();
         for (int i = 0; i < lastAddedIndex + 1; i++) {
             if(arr[i] != null){

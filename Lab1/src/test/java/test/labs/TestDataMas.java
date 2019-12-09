@@ -5,11 +5,10 @@ import com.company.Division;
 import com.company.Person;
 import Comparators.BirthDateComparator;
 import Comparators.IdComparator;
-import entities.IPerson;
-import entities.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
-import repository.IRepository;
+import ru.vsu.lab.entities.IPerson;
+import ru.vsu.lab.entities.enums.Gender;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ public class TestDataMas {
      */
     @Test
     public void testAdd(){
-        DataMas dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -40,7 +39,7 @@ public class TestDataMas {
 
     @Test
     public void testAddByIndex(){
-        DataMas dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -67,7 +66,7 @@ public class TestDataMas {
      */
     @Test
     public void testSet(){
-        DataMas dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -89,7 +88,7 @@ public class TestDataMas {
      */
     @Test
     public void testDelete(){
-        DataMas dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -110,7 +109,7 @@ public class TestDataMas {
      */
     @Test
     public void testBubbleSortBy(){
-        DataMas<IPerson> dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -120,7 +119,7 @@ public class TestDataMas {
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
-        dataMas.bubbleSortBy(new IdComparator());
+        dataMas.bubbleSortBy(new IdComparator<IPerson>());
         Assert.assertEquals(1, (int)dataMas.get(0).getId());
         Assert.assertEquals(2, (int)dataMas.get(1).getId());
         Assert.assertEquals(3, (int)dataMas.get(2).getId());
@@ -131,7 +130,7 @@ public class TestDataMas {
      */
     @Test
     public void testSortSimpleInsertionBy(){
-        DataMas<IPerson> dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -141,7 +140,7 @@ public class TestDataMas {
         dataMas.add(person3);
         dataMas.add(person2);
         dataMas.add(person1);
-        dataMas.sortBy(new BirthDateComparator());
+        dataMas.sortBy(new BirthDateComparator<IPerson>());
         Assert.assertEquals(15, (int)dataMas.get(0).getAge());
         Assert.assertEquals(17, (int)dataMas.get(1).getAge());
         Assert.assertEquals(18, (int)dataMas.get(2).getAge());
@@ -173,7 +172,7 @@ public class TestDataMas {
      */
     @Test
     public void searchById() {
-        DataMas<Person> arr = new DataMas();
+        DataMas<IPerson> arr = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Арыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,
@@ -199,7 +198,7 @@ public class TestDataMas {
      */
     @Test
     public void testSearchNameSurname(){
-        DataMas dataMas = new DataMas();
+        DataMas<IPerson> dataMas = new DataMas<>();
         Person person1 = new Person(1, "Иван", "Прыткин", Gender.MALE,
                 LocalDate.of(2004, 4, 27), new BigDecimal(10000), new Division("Работник"));
         Person person2 = new Person(2, "Саша", "Кеник", Gender.MALE,

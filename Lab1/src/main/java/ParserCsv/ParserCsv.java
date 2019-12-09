@@ -3,10 +3,10 @@ package ParserCsv;
 import com.company.DataMas;
 import com.company.Division;
 import com.company.Person;
-import entities.IDivision;
-import entities.IPerson;
-import entities.enums.Gender;
-import repository.IRepository;
+import ru.vsu.lab.entities.IDivision;
+import ru.vsu.lab.entities.IPerson;
+import ru.vsu.lab.entities.enums.Gender;
+import ru.vsu.lab.repository.IRepository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,7 +48,7 @@ public class ParserCsv {
         }
     }
 
-    public IRepository parse(){
+    public IRepository<IPerson> parse(){
         DataMas<IPerson> dataMas = new DataMas<IPerson>();
         for (String line : lines) {
             String[] subStr = line.split(";");
@@ -62,7 +62,7 @@ public class ParserCsv {
                     current_division);
             dataMas.add(person);
         }
-        return (IRepository) dataMas;
+        return dataMas;
     }
 
     private IDivision check_division(String[] subStr){

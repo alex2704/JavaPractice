@@ -2,9 +2,9 @@ package test.labs;
 
 import com.company.Division;
 import com.company.Person;
-import entities.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.vsu.lab.entities.enums.Gender;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

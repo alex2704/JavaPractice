@@ -3,10 +3,11 @@ package test.labs;
 import ParserCsv.ParserCsv;
 import com.company.Division;
 import com.company.Person;
-import entities.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
-import repository.IRepository;
+import ru.vsu.lab.entities.IPerson;
+import ru.vsu.lab.entities.enums.Gender;
+import ru.vsu.lab.repository.IRepository;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class TestParser {
         ParserCsv parser = new ParserCsv();
         String path = "src/main/resources/persons.csv";
         parser.read(path);
-        IRepository<Person> result = parser.parse();
+        IRepository<IPerson> result = parser.parse();
         Assert.assertEquals(person.getId(), result.get(9).getId());
     }
 }
