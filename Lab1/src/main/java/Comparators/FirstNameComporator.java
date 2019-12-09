@@ -1,6 +1,7 @@
 package Comparators;
 
-import entities.IPerson;
+
+import ru.vsu.lab.entities.IPerson;
 
 import java.util.Comparator;
 

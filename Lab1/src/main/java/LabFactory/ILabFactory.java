@@ -1,9 +1,8 @@
 package LabFactory;
-
-import entities.IDivision;
-import entities.IPerson;
-import repository.IRepository;
+import ru.vsu.lab.entities.IDivision;
+import ru.vsu.lab.entities.IPerson;
 import ru.vsu.lab.repository.IPersonRepository;
+import ru.vsu.lab.repository.IRepository;
 
 public interface ILabFactory {
 
