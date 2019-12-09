@@ -1,10 +1,10 @@
 package Comparators;
 
-import ru.vsu.lab.entities.IPerson;
+import com.company.Person;
 
 import java.util.Comparator;
 
-public class LastNameComparator<T> implements Comparator<IPerson> {
+public class LastNameComparator<T> implements Comparator<T> {
     /**
      *
      * @param o1 object 1
@@ -12,9 +12,9 @@ public class LastNameComparator<T> implements Comparator<IPerson> {
      * @return 0 если равны, 1 если o1>o2, -1 если o2>o1
      */
     @Override
-    public int compare(IPerson o1, IPerson o2) {
-        if(o1.getLastName().equals(o2.getLastName()))
+    public int compare(T o1, T o2) {
+        if(((Person)o1).getLastName().equals(((Person)o2).getLastName()))
             return 0;
-        return o1.getLastName().compareTo(o2.getLastName()) > 0 ?  1 : -1;
+        return ((Person)o1).getLastName().compareTo(((Person)o2).getLastName()) > 0 ?  1 : -1;
     }
 }

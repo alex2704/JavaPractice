@@ -1,10 +1,10 @@
 package Comparators;
 
-import ru.vsu.lab.entities.IPerson;
+import com.company.Person;
 
 import java.util.Comparator;
 
-public class IdComparator<IPerson> implements Comparator<ru.vsu.lab.entities.IPerson> {
+public class IdComparator<T> implements Comparator<T> {
     /**
      *
      * @param o1 object 1
@@ -12,16 +12,9 @@ public class IdComparator<IPerson> implements Comparator<ru.vsu.lab.entities.IPe
      * @return 0 если равны, 1 если o1>o2, -1 если o2>o1
      */
     @Override
-    public int compare(ru.vsu.lab.entities.IPerson o1, ru.vsu.lab.entities.IPerson o2) {
-        if(o1.getId().equals(o2.getId()))
+    public int compare(T o1, T o2) {
+        if(((Person)o1).getId().equals(((Person)o2).getId()))
             return 0;
-        return o1.getId().compareTo(o2.getId()) > 0 ?  1 : -1;
+        return ((Person)o1).getId().compareTo(((Person)o2).getId()) > 0 ?  1 : -1;
     }
-
-//    @Override
-//    public int compare(IPerson o1, IPerson o2) {
-//        if(o1.getId().equals(o2.getId()))
-//            return 0;
-//        return o1.getId().compareTo(o2.getId()) > 0 ?  1 : -1;
-//    }
 }

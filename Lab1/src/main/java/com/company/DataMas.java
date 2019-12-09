@@ -215,45 +215,6 @@ public class DataMas<T> implements IRepository<T>{
         }
     }
 
-//    /**
-//     * Быстрая сортировка по фамилии по возрастанию
-//     */
-//    public void sortBySurname(){
-//        for (int i=0; i<lastAddedIndex + 1; i++){
-//            Person min = (Person) arr[i];
-//            int minId = i;
-//            for (int j=i+1; j<lastAddedIndex + 1; j++){
-//                int m  = 0;
-//                while (arr[j].getLastName().substring(m, m + 1).equals(min.getLastName().substring(m, m + 1)) &&
-//                        m + 1 < arr[j].getLastName().length() && m + 1 < min.getLastName().length())
-//                    m++;
-//                if(arr[j].getLastName().charAt(m) < min.getLastName().charAt(m)){
-//                    min = (Person) arr[j];
-//                    minId = j;
-//                }
-//                m = 0;
-//            }
-//            Person temp = (Person) arr[i];
-//            arr[i] = min;
-//            arr[minId] = temp;
-//        }
-//    }
-
-//    /**
-//     * Поиск по имени и фамилии
-//     * @param Name имя
-//     * @param Surname фамилия
-//     * @return список объектов класса Person с данным именем и фамилией
-//     */
-//    public DataMas search(String Name, String Surname) throws Exception{
-//        DataMas result = new DataMas();
-//        for (IPerson person : arr) {
-//            if (person.getLastName().equals(Surname) && person.getFirstName().equals(Name))
-//                result.add(person);
-//        }
-//        throw new Exception("Объекта с соответсвующими параметрами не найдено");
-//    }
-
     /**
      * Поиск по массиву с задданым условием
      * @param condition predicate
