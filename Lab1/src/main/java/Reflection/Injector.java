@@ -43,6 +43,10 @@ public class Injector {
         return null;
     }
 
+    /**
+     * Считывает свойства из файла
+     * @return список свойство = значение
+     */
     private static List<List<String>> getSort() {
         try {
             Properties properties = new Properties();
