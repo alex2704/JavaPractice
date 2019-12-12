@@ -1,7 +1,9 @@
 package com.company;
 
 import Comparators.IdComparator;
+import annotations.LabInjector;
 import ru.vsu.lab.repository.IRepository;
+import sorts.ISorter;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,6 +14,10 @@ import java.util.function.Predicate;
  * Массив который хранит объекты
  */
 public class DataMas<T> implements IRepository<T>{
+
+    @LabInjector
+    private ISorter<T> sort;
+
     /**
      * поле с экземплярами класса Person.
      */
@@ -199,20 +205,23 @@ public class DataMas<T> implements IRepository<T>{
     }
 
     /**
+     * Отсортировать массив
+     *
+     * @param comparator
+     * @param sort
+     */
+    @SuppressWarnings("unchecked")
+    private void sortBy(Comparator<T> comparator, ISorter sort) {
+        sort.sort(arr, comparator);
+    }
+
+    /**
      * Сортировка простыми вставками по возрасту по возрастанию.
      * @param comparator
      */
     @Override
-    public void sortBy(Comparator<T> comparator ){
-        for (int i=1; i < lastAddedIndex + 1; i++){
-            T current = getT(i);
-            int j = i - 1;
-            while (j >= 0 && comparator.compare(current, getT(j)) < 0){
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j+1] = current;
-        }
+    public void sortBy(Comparator<T> comparator){
+        sortBy(comparator, sort);
     }
 
     /**
