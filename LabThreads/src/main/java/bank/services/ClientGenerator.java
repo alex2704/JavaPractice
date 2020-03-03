@@ -17,7 +17,7 @@ public class ClientGenerator extends Thread {
         Random rnd = new Random();
         while(true){
             try {
-                sleep(rnd.nextInt(500));
+                sleep(rnd.nextInt(2000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
