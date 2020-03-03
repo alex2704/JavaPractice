@@ -1,4 +1,4 @@
-package MatrixMultiplication;
+package matrixMultiplication;
 
 public class MultiplicationThreaded {
     public static void multi(int threadsCount, int[][]m1, int[][]m2){

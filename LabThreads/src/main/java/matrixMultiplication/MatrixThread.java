@@ -1,4 +1,4 @@
-package MatrixMultiplication;
+package matrixMultiplication;
 
 public class MatrixThread extends Thread{
     private int[][] arr1;
