@@ -2,11 +2,13 @@ package Comparators;
 
 
 import com.company.Person;
+import org.apache.log4j.Logger;
 import ru.vsu.lab.entities.IPerson;
 
 import java.util.Comparator;
 
 public class FirstNameComporator<T> implements Comparator<T> {
+    private static Logger logger = Logger.getLogger(FirstNameComporator.class);
     /**
      *
      * @param o1 object 1
@@ -15,6 +17,7 @@ public class FirstNameComporator<T> implements Comparator<T> {
      */
     @Override
     public int compare(T o1, T o2) {
+        logger.debug("compare started with " + o1.getClass() + " " + o2.getClass() + " " + "params");
         if(((Person)o1).getFirstName().equals(((Person)o2).getFirstName()))
             return 0;
         return ((Person)o1).getFirstName().compareTo(((Person)o2).getFirstName()) > 0 ?  1 : -1;

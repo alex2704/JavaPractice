@@ -2,6 +2,7 @@ package com.company;
 
 import Comparators.IdComparator;
 import annotations.LabInjector;
+import org.apache.log4j.Logger;
 import ru.vsu.lab.repository.IRepository;
 import sorts.ISorter;
 
@@ -14,6 +15,7 @@ import java.util.function.Predicate;
  * Массив который хранит объекты
  */
 public class DataMas<T> implements IRepository<T>{
+    private static Logger logger = Logger.getLogger(DataMas.class);
 
     @LabInjector
     private ISorter<T> sort;
@@ -50,6 +52,7 @@ public class DataMas<T> implements IRepository<T>{
      * @param ArrLength длина массива.
      */
     public DataMas(final int ArrLength){
+        logger.debug("Created DataMas with length" + ArrLength);
         if(ArrLength > 0){
             arr = new Object[ArrLength];
         }
@@ -89,6 +92,7 @@ public class DataMas<T> implements IRepository<T>{
      */
     @Override
      public T set(int index, T person) {
+        logger.debug("set new item with index " + index + "and object " + person.toString());
         if (index < arr.length && index >= 0) {
             T temp = getT(index);
             arr[index] = person;
@@ -108,6 +112,7 @@ public class DataMas<T> implements IRepository<T>{
      */
     @Override
     public void add(T person){
+        logger.debug("adding new person " + person.toString());
         if (lastAddedIndex + 1 < arr.length) {
             arr[++lastAddedIndex] = person;
         }
@@ -130,6 +135,7 @@ public class DataMas<T> implements IRepository<T>{
      */
     @Override
     public void add(int index, T person) {
+        logger.debug("adding new person " + person.toString() + "and index " + index);
         if (index + 1 < arr.length && arr[arr.length - 1] == null) {
             if (arr[index] != null) {
                 right_shift_mas(index, person, arr);
@@ -160,6 +166,7 @@ public class DataMas<T> implements IRepository<T>{
      * @param arr массив с которым работаем
      */
     private void right_shift_mas(int index, T person, Object[] arr) {
+        logger.debug("right_shift_mas params: " + person.toString() + "and index " + index + "arr length" + arr.length);
         Object tmp = arr[index];
         arr[index] = person;
 
@@ -176,6 +183,7 @@ public class DataMas<T> implements IRepository<T>{
      */
     @Override
     public T delete(final int index){
+        logger.debug("deleting item with index " + index);
         if(index < arr.length && index >= 0){
             T n = this.get(index);
             for(int i = index; i < lastAddedIndex; i++){

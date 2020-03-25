@@ -3,6 +3,7 @@ package ParserCsv;
 import com.company.DataMas;
 import com.company.Division;
 import com.company.Person;
+import org.apache.log4j.Logger;
 import ru.vsu.lab.entities.IDivision;
 import ru.vsu.lab.entities.IPerson;
 import ru.vsu.lab.entities.enums.Gender;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ParserCsv {
+    private static Logger logger = Logger.getLogger(ParserCsv.class);
     private static final int ID_INDEX = 0;
     private static final int FIRST_NAME_INDEX = 1;
     private static final int GENDER_INDEX = 2;
@@ -49,6 +51,7 @@ public class ParserCsv {
     }
 
     public IRepository<IPerson> parse(){
+        logger.trace("Parse started");
         DataMas<IPerson> dataMas = new DataMas<IPerson>();
         for (String line : lines) {
             String[] subStr = line.split(";");
@@ -60,6 +63,7 @@ public class ParserCsv {
                             DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.US)),
                     new BigDecimal(subStr[SALARY_INDEX]),
                     current_division);
+            logger.debug("Person created" + person.toString());
             dataMas.add(person);
         }
         return dataMas;

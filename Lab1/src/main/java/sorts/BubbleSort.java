@@ -1,11 +1,12 @@
 package sorts;
 
-import com.company.DataMas;
-import ru.vsu.lab.repository.IRepository;
+import org.apache.log4j.Logger;
 
 import java.util.Comparator;
 
 public class BubbleSort<T> implements ISorter<T>{
+
+    private static Logger logger = Logger.getLogger(BubbleSort.class);
 
     /**
      * sort mas
@@ -14,6 +15,7 @@ public class BubbleSort<T> implements ISorter<T>{
      */
     @Override
     public void sort(T[] arr, Comparator<T> comparator) {
+        logger.trace("BubbleSort started");
         T temp;
         for (int i=0; i<arr.length; i++){
             for (int j = arr.length - 1; j > i; j--){

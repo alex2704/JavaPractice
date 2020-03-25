@@ -59,6 +59,8 @@ public class OperationOfficer extends Thread {
                 e.printStackTrace();
             }
             client = null;
+            if(clients.size() > 0)
+                service();
     }
 
     private void increase(){

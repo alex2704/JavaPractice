@@ -2,10 +2,9 @@ package Reflection;
 
 import Exeptions.ReflectException;
 import annotations.LabInjector;
+import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class Injector {
+    private static Logger logger = Logger.getLogger(Injector.class);
 
     /**
      * Подключает сортировку по свойству из файла
@@ -21,23 +21,24 @@ public class Injector {
      * @return репозиторий с инициализированным полем, у которого присутсвует аннотация
      */
     public static <T> T inject(T repository) throws ReflectException {
-        try{
-        List<List<String>> arr = getSort();
-        for (Field field : repository.getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(LabInjector.class) && arr != null){
-                for (List<String> i: arr) {
-                    if(field.getType().getName().equals(i.get(0))){
-                        boolean isAccessible = field.canAccess(repository);
-                        field.setAccessible(true);
-                        field.set(repository, Class.forName(i.get(1)).newInstance());
-                        field.setAccessible(isAccessible);
+        try {
+            logger.trace("Inject started");
+            List<List<String>> arr = getSort();
+            for (Field field : repository.getClass().getDeclaredFields()) {
+                if (field.isAnnotationPresent(LabInjector.class) && arr != null) {
+                    for (List<String> i : arr) {
+                        if (field.getType().getName().equals(i.get(0))) {
+                            boolean isAccessible = field.canAccess(repository);
+                            field.setAccessible(true);
+                            field.set(repository, Class.forName(i.get(1)).newInstance());
+                            field.setAccessible(isAccessible);
+                        }
                     }
                 }
             }
-        }
-        return repository;
-        }
-        catch (Exception e){
+            return repository;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
             new ReflectException(e.toString());
         }
         return null;
@@ -65,6 +66,7 @@ public class Injector {
             return content;
         }
         catch(Exception e){
+            logger.error(e.getMessage());
             new ReflectException(e.toString());
         }
         return null;
