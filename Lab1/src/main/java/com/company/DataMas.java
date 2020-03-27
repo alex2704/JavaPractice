@@ -1,11 +1,13 @@
 package com.company;
-
-import Comparators.IdComparator;
 import annotations.LabInjector;
 import org.apache.log4j.Logger;
 import ru.vsu.lab.repository.IRepository;
 import sorts.ISorter;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.function.Predicate;
 /**
  * Массив который хранит объекты
  */
+@XmlRootElement(name = "repo")
+@XmlSeeAlso({Person.class})
 public class DataMas<T> implements IRepository<T>{
     private static Logger logger = Logger.getLogger(DataMas.class);
 
@@ -23,6 +27,8 @@ public class DataMas<T> implements IRepository<T>{
     /**
      * поле с экземплярами класса Person.
      */
+    @XmlElementWrapper(name = "personsList")
+    @XmlElement(name = "person")
     private Object [] arr;
 
     /**

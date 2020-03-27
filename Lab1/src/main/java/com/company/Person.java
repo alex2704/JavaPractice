@@ -1,16 +1,23 @@
 package com.company;
 
+import JAXB.AdapterDateXml;
+import JAXB.AdapterDivisionXml;
 import ru.vsu.lab.entities.IDivision;
 import ru.vsu.lab.entities.IPerson;
 import ru.vsu.lab.entities.enums.Gender;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person implements IPerson {
     /**
      * поле идентификатор
      */
+    @XmlTransient
     private Integer id;
 
     /**
@@ -31,11 +38,13 @@ public class Person implements IPerson {
     /**
      * дата дня рождения человека
      */
+    @XmlJavaTypeAdapter(value = AdapterDateXml.class)
     private LocalDate birthdate;
 
     /**
      * классификация
      */
+    @XmlJavaTypeAdapter(value = AdapterDivisionXml.class)
     private IDivision division;
 
     /**
