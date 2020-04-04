@@ -71,8 +71,8 @@
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="PersonService">
-        <wsdl:port name="CompanyPort" binding="tns:ListBinding">
-            <soap:address location="http://localhost:1234/CompanyPort"/>
+        <wsdl:port name="ListPort" binding="tns:ListBinding">
+            <soap:address location="http://localhost:1234/ListPort"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
